@@ -18,7 +18,7 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
       sessionStorage.setItem(authConfig.sessionKey, "authenticated");
       onLoginSuccess();
     } else {
-      setError("Incorrect password. Please enter the 8-character password.");
+      setError("Incorrect password. Please try again.");
     }
   };
 
@@ -43,7 +43,7 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
           <form onSubmit={handleLogin} className="space-y-5">
             <div>
               <label className="block text-xs font-medium text-gold-300 uppercase tracking-wider mb-2">
-                Security Password (8 Characters)
+                Security Password
               </label>
               <div className="relative">
                 <input
@@ -75,10 +75,6 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
               Sign In to Dashboard
             </button>
           </form>
-
-          <p className="text-center text-[11px] text-neutral-500 mt-6">
-            Default Password: <span className="text-gold-400 font-mono">Wed2026!</span>
-          </p>
         </div>
       </div>
     </div>
