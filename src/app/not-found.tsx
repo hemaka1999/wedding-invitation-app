@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { Sparkles, HeartHandshake } from "lucide-react";
+import { HeartHandshake } from "lucide-react";
 
 export default function NotFound() {
   return (
@@ -14,16 +13,12 @@ export default function NotFound() {
         <h1 className="font-serif text-2xl text-royal-900 font-bold mb-2">
           Invitation Not Found
         </h1>
-        <p className="text-sm text-neutral-600 mb-6 leading-relaxed">
-          We couldn&apos;t find an active wedding invitation for this link. Please check the invitation URL or contact Kasun &amp; Nethmi.
+        <p className="text-sm text-neutral-600 mb-2 leading-relaxed">
+          We couldn&apos;t find an active wedding invitation for this link.
         </p>
-        <Link
-          href="/admin"
-          className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-gradient-to-r from-gold-500 via-gold-600 to-gold-500 py-3 text-sm font-semibold text-white shadow-md hover:from-gold-600 hover:to-gold-700 transition-all"
-        >
-          <Sparkles className="w-4 h-4" />
-          Go to Admin Dashboard
-        </Link>
+        <p className="text-xs text-neutral-400 leading-relaxed">
+          Please check the invitation URL or contact Kasun &amp; Nethmi directly.
+        </p>
       </div>
     </div>
   );
