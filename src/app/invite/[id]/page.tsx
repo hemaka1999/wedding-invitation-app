@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, use } from "react";
+import { notFound } from "next/navigation";
 import { Guest } from "@/types";
 import { apiService } from "@/services/apiService";
 import WeddingInvitationCard from "@/components/invite/WeddingInvitationCard";
@@ -14,18 +15,27 @@ export default function InvitePage({ params }: InvitePageProps) {
   const guestId = resolvedParams.id;
   const [guest, setGuest] = useState<Guest | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isNotFound, setIsNotFound] = useState(false);
 
   useEffect(() => {
     if (guestId) {
       apiService
         .getGuestById(guestId)
         .then((data) => {
-          setGuest(data);
+          if (!data) {
+            setIsNotFound(true);
+          } else {
+            setGuest(data);
+          }
+        })
+        .catch(() => {
+          setIsNotFound(true);
         })
         .finally(() => {
           setIsLoading(false);
         });
     } else {
+      setIsNotFound(true);
       setIsLoading(false);
     }
   }, [guestId]);
@@ -41,6 +51,10 @@ export default function InvitePage({ params }: InvitePageProps) {
         </div>
       </div>
     );
+  }
+
+  if (isNotFound || !guest) {
+    notFound();
   }
 
   return <WeddingInvitationCard guest={guest} />;

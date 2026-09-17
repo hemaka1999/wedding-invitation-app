@@ -1,37 +1,17 @@
-"use client";
+import { redirect } from "next/navigation";
 
-import React, { useEffect, useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
-import { Guest } from "@/types";
-import { apiService } from "@/services/apiService";
-import WeddingInvitationCard from "@/components/invite/WeddingInvitationCard";
-
-function HomePageContent() {
-  const searchParams = useSearchParams();
-  const idFromQuery = searchParams.get("id");
-  const [guest, setGuest] = useState<Guest | null>(null);
-
-  useEffect(() => {
-    if (idFromQuery) {
-      apiService.getGuestById(idFromQuery).then((data) => {
-        setGuest(data);
-      });
-    }
-  }, [idFromQuery]);
-
-  return <WeddingInvitationCard guest={guest} />;
+interface HomePageProps {
+  searchParams: Promise<{ id?: string }>;
 }
 
-export default function HomePage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen flex items-center justify-center bg-[#FAF8F5]">
-          <p className="font-serif text-sm text-gold-700">Loading Invitation...</p>
-        </div>
-      }
-    >
-      <HomePageContent />
-    </Suspense>
-  );
+export default async function HomePage({ searchParams }: HomePageProps) {
+  const resolvedParams = await searchParams;
+  
+  // If legacy query link like /?id=amal92 is accessed, redirect to /invite/amal92
+  if (resolvedParams?.id) {
+    redirect(`/invite/${resolvedParams.id}`);
+  }
+
+  // Root URL / redirects to Admin Login Panel
+  redirect("/admin");
 }
