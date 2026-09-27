@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState, use } from "react";
-import { notFound } from "next/navigation";
 import { Guest } from "@/types";
 import { apiService } from "@/services/apiService";
 import WeddingInvitationCard from "@/components/invite/WeddingInvitationCard";
@@ -15,27 +14,59 @@ export default function InvitePage({ params }: InvitePageProps) {
   const guestId = resolvedParams.id;
   const [guest, setGuest] = useState<Guest | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isNotFound, setIsNotFound] = useState(false);
 
   useEffect(() => {
     if (guestId) {
       apiService
         .getGuestById(guestId)
         .then((data) => {
-          if (!data) {
-            setIsNotFound(true);
-          } else {
+          if (data) {
             setGuest(data);
+          } else {
+            // Graceful fallback for preview / offline ID
+            const formattedName = decodeURIComponent(guestId)
+              .replace(/[-_]/g, " ")
+              .replace(/\b\w/g, (c) => c.toUpperCase());
+            
+            setGuest({
+              id: guestId,
+              title: "",
+              guest_name: formattedName || "Distinguished Guest",
+              invitation_type: "Single",
+              seats: 1,
+              rsvp_status: "Pending",
+              attending_count: 0,
+            });
           }
         })
         .catch(() => {
-          setIsNotFound(true);
+          const formattedName = decodeURIComponent(guestId)
+            .replace(/[-_]/g, " ")
+            .replace(/\b\w/g, (c) => c.toUpperCase());
+          
+          setGuest({
+            id: guestId,
+            title: "",
+            guest_name: formattedName || "Distinguished Guest",
+            invitation_type: "Single",
+            seats: 1,
+            rsvp_status: "Pending",
+            attending_count: 0,
+          });
         })
         .finally(() => {
           setIsLoading(false);
         });
     } else {
-      setIsNotFound(true);
+      setGuest({
+        id: "guest",
+        title: "",
+        guest_name: "Distinguished Guest",
+        invitation_type: "Single",
+        seats: 1,
+        rsvp_status: "Pending",
+        attending_count: 0,
+      });
       setIsLoading(false);
     }
   }, [guestId]);
@@ -51,10 +82,6 @@ export default function InvitePage({ params }: InvitePageProps) {
         </div>
       </div>
     );
-  }
-
-  if (isNotFound || !guest) {
-    notFound();
   }
 
   return <WeddingInvitationCard guest={guest} />;
