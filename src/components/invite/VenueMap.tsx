@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Navigation, ExternalLink, MapPin } from "lucide-react";
+import { Navigation, MapPin } from "lucide-react";
 import { weddingConfig } from "@/config/weddingConfig";
 
 export default function VenueMap() {
@@ -28,14 +28,14 @@ export default function VenueMap() {
             <MapPin className="w-3 h-3 text-white" />
           </div>
           <span className="font-body text-[10px] sm:text-[11px] font-bold tracking-[1.5px] text-[#1E3A8A] uppercase">
-            SHANGRI-LA HOTEL • COLOMBO
+            {venue.shortName || venue.name}
           </span>
         </div>
 
         {/* Interactive Google Map Preview */}
         <div className="relative w-full h-52 sm:h-56 rounded-[14px] overflow-hidden border border-[#EAE0D0] bg-neutral-100">
           <iframe
-            title="Shangri-La Hotel Colombo Google Map"
+            title={`${venue.name} Google Map`}
             src={venue.mapEmbedUrl}
             width="100%"
             height="100%"
@@ -53,7 +53,7 @@ export default function VenueMap() {
             {venue.name}
           </p>
           <p className="font-body text-[11px] sm:text-xs text-[#696155] mt-0.5">
-            {venue.address}
+            {venue.address}{venue.city ? `, ${venue.city}` : ""}
           </p>
         </div>
 

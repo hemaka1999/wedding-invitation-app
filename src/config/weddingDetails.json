@@ -1,17 +1,17 @@
 {
   "groom": {
-    "fullName": "Kasun Malinda Fernando",
-    "callName": "Kasun",
+    "fullName": "Dumindu Ariyasinghe",
+    "callName": "Dumindu",
     "title": "Groom",
-    "parentsText": "Son of Mr. Nihal Fernando & Mrs. Shirani Fernando",
-    "hometown": "Moratuwa, Sri Lanka"
+    "parentsText": "Beloved son of Mrs. Priyanwada Premarathne & the late Mr. Palitha Ariyasinghe",
+    "hometown": ""
   },
   "bride": {
-    "fullName": "Nethmi Kavindya Perera",
-    "callName": "Nethmi",
+    "fullName": "Savindi Weerakoon",
+    "callName": "Savindi",
     "title": "Bride",
-    "parentsText": "Daughter of Mr. Sunil Perera & Mrs. Malkanthi Perera",
-    "hometown": "Nugegoda, Sri Lanka"
+    "parentsText": "Daughter of Mr. Saman Weerakoon & Mrs. Pushpa Nawaratne",
+    "hometown": ""
   },
   "subtitles": {
     "coverSubtitle": "Together Forever",
@@ -24,8 +24,8 @@
     "timeDisplay": "From 09:30 AM onwards",
     "isoDateTime": "2026-10-18T09:30:00+05:30",
     "calendarEvent": {
-      "title": "Wedding Celebration of Kasun & Nethmi",
-      "description": "Join us in celebrating the marriage of Kasun and Nethmi at Shangri-La Hotel, Colombo.",
+      "title": "Wedding Celebration of Dumindu & Savindi",
+      "description": "Join us in celebrating the marriage of Dumindu and Savindi at Shangri-La Hotel, Colombo.",
       "location": "The Grand Ballroom, Shangri-La Hotel, Colombo 02, Sri Lanka",
       "startDate": "20261018T093000",
       "endDate": "20261018T163000"
@@ -60,13 +60,13 @@
     }
   ],
   "venue": {
-    "name": "The Grand Ballroom, Shangri-La Hotel",
-    "shortName": "SHANGRI-LA HOTEL • COLOMBO",
-    "city": "Colombo 02, Sri Lanka",
-    "address": "1 Galle Face, Colombo 02, Sri Lanka",
-    "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.718873406208!2d79.84278477583685!3d6.924151793075574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2593bcf9b6cd5%3A0xe543c74ea6d35706!2sShangri-La%20Colombo!5e0!3m2!1sen!2slk!4v1710000000000!5m2!1sen!2slk",
-    "mapDirectUrl": "https://maps.app.goo.gl/hGz71q7Xh15oZf3V9",
-    "contactPhone": "+94 11 788 8288"
+    "name": "Senuri Grand Castello",
+    "shortName": "SENURI GRAND CASTELLO",
+    "city": "Divulapitiya, Sri Lanka",
+    "address": "Negombo Road, Divulapitiya",
+    "mapEmbedUrl": "https://maps.google.com/maps?q=Senuri+Grand+Castello+Divulapitiya&t=&z=15&ie=UTF8&iwloc=&output=embed",
+    "mapDirectUrl": "https://maps.app.goo.gl/fwYmRCHvJgSKU1oQ8",
+    "contactPhone": "+94 31 224 3504"
   },
   "music": {
     "trackTitle": "Romantic Sri Lankan Flute Melody",
