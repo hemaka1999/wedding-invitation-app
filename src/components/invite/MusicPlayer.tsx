@@ -1,12 +1,42 @@
 "use client";
 
-import React, { useState, useRef } from "react";
-import { Volume2, VolumeX, Music } from "lucide-react";
+import React, { useState, useRef, useEffect } from "react";
+import { Volume2, VolumeX } from "lucide-react";
 import { weddingConfig } from "@/config/weddingConfig";
 
-export default function MusicPlayer() {
+interface MusicPlayerProps {
+  autoPlayTrigger?: boolean;
+}
+
+export default function MusicPlayer({ autoPlayTrigger }: MusicPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Trigger smooth playback when wax seal is opened (explicit user tap)
+  useEffect(() => {
+    if (autoPlayTrigger && audioRef.current && !isPlaying) {
+      audioRef.current.volume = 0.0;
+      audioRef.current
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+          // Gentle volume fade-in
+          let vol = 0.0;
+          const fadeInterval = setInterval(() => {
+            if (!audioRef.current) {
+              clearInterval(fadeInterval);
+              return;
+            }
+            vol = Math.min(0.65, vol + 0.05);
+            audioRef.current.volume = vol;
+            if (vol >= 0.65) clearInterval(fadeInterval);
+          }, 120);
+        })
+        .catch((err) => {
+          console.log("Audio play deferred:", err);
+        });
+    }
+  }, [autoPlayTrigger]);
 
   const toggleMusic = () => {
     if (!audioRef.current) return;
@@ -15,10 +45,11 @@ export default function MusicPlayer() {
       audioRef.current.pause();
       setIsPlaying(false);
     } else {
+      audioRef.current.volume = 0.65;
       audioRef.current
         .play()
         .then(() => setIsPlaying(true))
-        .catch((err) => console.log("Audio autoplay prevented:", err));
+        .catch((err) => console.log("Audio play prevented:", err));
     }
   };
 

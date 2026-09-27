@@ -1,11 +1,17 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
-@layer base {
-  body {
-    @apply bg-[#E8E3DA] text-[#0F172A] antialiased selection:bg-gold-200 selection:text-midnight-950;
-  }
+body {
+  background-color: #E8E3DA;
+  color: #0F172A;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: #F4E3BA;
+  color: #070C16;
 }
 
 /* Metallic Gold Foil Gradients */
@@ -16,6 +22,7 @@
 .text-gold-foil {
   background: linear-gradient(135deg, #FCEFD2 0%, #E5C77A 35%, #C59E47 70%, #E8CE87 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -76,4 +83,17 @@
 ::-webkit-scrollbar-thumb {
   background: #C59E47;
   border-radius: 4px;
+}
+
+/* Hide Next.js dev indicator icon and badge */
+[data-nextjs-toast],
+[data-next-badge],
+#next-logo,
+nextjs-portal,
+div[data-nextjs-dev-tools-button],
+button[aria-label="Open Next.js DevTools"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }

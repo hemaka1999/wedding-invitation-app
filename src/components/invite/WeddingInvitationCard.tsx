@@ -28,7 +28,7 @@ export default function WeddingInvitationCard({ guest }: WeddingInvitationCardPr
       <ThreeFloatingDust />
 
       {/* Floating Music Player */}
-      <MusicPlayer />
+      <MusicPlayer autoPlayTrigger={isOpened} />
 
       {/* Interactive Gated Cover Screen (Screen 1) */}
       {!isOpened && (
