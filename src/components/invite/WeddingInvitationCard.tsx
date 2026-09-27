@@ -23,7 +23,7 @@ export default function WeddingInvitationCard({ guest }: WeddingInvitationCardPr
   const coupleNames = `${groom.callName.toUpperCase()} & ${bride.callName.toUpperCase()}`;
 
   return (
-    <main className="relative min-h-screen bg-[#E8E3DA] py-6 sm:py-12 px-3 sm:px-4 selection:bg-[#E5C77A]/30">
+    <main className="relative min-h-screen bg-[#E8E3DA] py-4 sm:py-12 px-2.5 sm:px-4 selection:bg-[#E5C77A]/30 overflow-x-hidden">
       {/* Ambient 3D Floating Golden Stardust Canvas */}
       <ThreeFloatingDust />
 
@@ -36,7 +36,7 @@ export default function WeddingInvitationCard({ guest }: WeddingInvitationCardPr
       )}
 
       {/* Main Wedding Invitation Chassis Container (Screen 2) */}
-      <div className="relative z-10 mx-auto max-w-[430px] rounded-[36px] bg-[#FAF6EE] p-4 sm:p-6 shadow-[0_16px_40px_rgba(10,14,23,0.12)] border-[1.5px] border-[#E6DDD0]">
+      <div className="relative z-10 mx-auto w-full max-w-[430px] rounded-[32px] sm:rounded-[36px] bg-[#FAF6EE] p-4 sm:p-6 shadow-[0_16px_40px_rgba(10,14,23,0.12)] border-[1.5px] border-[#E6DDD0]">
         
         {/* Header Poruwa Monogram */}
         <div className="pt-4 pb-2 text-center">
