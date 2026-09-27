@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { Mail, Sparkles, Heart } from "lucide-react";
 import confetti from "canvas-confetti";
 import { Guest } from "@/types";
 
@@ -12,101 +11,190 @@ interface EnvelopeCoverProps {
 
 export default function EnvelopeCover({ guest, onOpen }: EnvelopeCoverProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSealing, setIsSealing] = useState(false);
 
   const handleOpen = () => {
-    setIsOpen(true);
-    // Trigger celebratory golden confetti
+    if (isSealing || isOpen) return;
+    setIsSealing(true);
+
+    // Trigger celebratory golden & champagne confetti
     try {
       confetti({
-        particleCount: 60,
-        spread: 70,
-        origin: { y: 0.65 },
-        colors: ["#D4AF37", "#C5A059", "#FAF8F5", "#E6CA65", "#FFFFFF"],
+        particleCount: 80,
+        spread: 85,
+        origin: { y: 0.62 },
+        colors: ["#FCEFD2", "#E5C77A", "#C59E47", "#FFFFFF", "#DEB553"],
       });
     } catch (e) {}
 
     setTimeout(() => {
-      onOpen();
-    }, 800);
+      setIsOpen(true);
+      setTimeout(() => {
+        onOpen();
+      }, 700);
+    }, 450);
   };
 
   const guestDisplayName = guest
     ? `${guest.title ? guest.title + " " : ""}${guest.guest_name}`
     : "Distinguished Guest";
 
+  const getSeatText = () => {
+    if (!guest) return "Cordially Invited";
+    if (guest.invitation_type === "Custom") {
+      return `${guest.custom_text || "Special Invitation"} (${guest.seats || 1} ${(guest.seats || 1) > 1 ? "Seats" : "Seat"})`;
+    }
+    if (guest.invitation_type === "Couple") {
+      return "Couple Invitation (2 Seats)";
+    }
+    if (guest.invitation_type === "Family") {
+      return `Family Invitation (${guest.seats || 4} Seats)`;
+    }
+    return `Single Invitation (${guest.seats || 1} Seat)`;
+  };
+
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-b from-[#0F172A] via-[#1A2433] to-[#0B1120] p-4 transition-all duration-1000 ${
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-[#E8E3DA]/80 backdrop-blur-md p-4 transition-all duration-700 ${
         isOpen ? "opacity-0 pointer-events-none scale-105" : "opacity-100 scale-100"
       }`}
     >
-      {/* Subtle luxury glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(197,160,89,0.18)_0,transparent_70%)] pointer-events-none" />
-
-      {/* Main Envelope Container */}
-      <div className="relative w-full max-w-md mx-auto">
-        {/* Decorative Outer Glow */}
-        <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-gold-400/40 via-gold-200/25 to-gold-500/40 blur-xl opacity-80 animate-pulse-slow" />
-
-        {/* Card Body */}
-        <div className="relative overflow-hidden rounded-2xl border border-gold-400/40 bg-gradient-to-b from-[#1E293B] to-[#0F172A] p-7 sm:p-9 text-center shadow-2xl backdrop-blur-md">
+      {/* Mobile Chassis Frame Container */}
+      <div className="relative w-full max-w-[400px] overflow-hidden rounded-[36px] bg-[#070C16] p-4 shadow-[0_20px_50px_rgba(10,14,23,0.5)] border-[1.5px] border-[#22304A]">
+        
+        {/* Inner Card Container with Midnight Navy Gradient & Gold Border */}
+        <div className="relative rounded-[26px] bg-dark-envelope p-6 sm:p-7 text-center border border-[#C59E47]/40 overflow-hidden shadow-2xl">
           
-          {/* Top Header Badge */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-gold-400/30 bg-gold-400/10 px-4 py-1 text-xs uppercase tracking-widest text-gold-300">
-            <Sparkles className="w-3.5 h-3.5 text-gold-400" />
-            <span>Wedding Invitation</span>
-            <Sparkles className="w-3.5 h-3.5 text-gold-400" />
+          {/* Delicate Corner Filigree Ornaments */}
+          <svg
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            viewBox="0 0 346 734"
+            fill="none"
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <linearGradient id="corner-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#FCEFD2" />
+                <stop offset="50%" stopColor="#C59E47" />
+                <stop offset="100%" stopColor="#E5C77A" />
+              </linearGradient>
+            </defs>
+            {/* Top Left */}
+            <path
+              d="M 18 30 C 18 18 30 18 30 18 M 18 30 C 18 42 30 42 30 42"
+              stroke="url(#corner-gold)"
+              strokeWidth="1.2"
+              fill="none"
+            />
+            {/* Top Right */}
+            <path
+              d="M 328 30 C 328 18 316 18 316 18 M 328 30 C 328 42 316 42 316 42"
+              stroke="url(#corner-gold)"
+              strokeWidth="1.2"
+              fill="none"
+            />
+            {/* Bottom Left */}
+            <path
+              d="M 18 704 C 18 716 30 716 30 716 M 18 704 C 18 692 30 692 30 692"
+              stroke="url(#corner-gold)"
+              strokeWidth="1.2"
+              fill="none"
+            />
+            {/* Bottom Right */}
+            <path
+              d="M 328 704 C 328 716 316 716 316 716 M 328 704 C 328 692 316 692 316 692"
+              stroke="url(#corner-gold)"
+              strokeWidth="1.2"
+              fill="none"
+            />
+          </svg>
+
+          {/* Header Badge */}
+          <div className="relative z-10 mx-auto inline-flex items-center justify-center rounded-full bg-[#141E32] px-5 py-1.5 border border-[#C59E47]/60 shadow-sm mt-2">
+            <span className="font-body text-[10px] sm:text-[11px] font-semibold tracking-[3px] text-[#E5C77A] uppercase">
+              ✦ WEDDING INVITATION ✦
+            </span>
           </div>
 
-          {/* Monogram */}
-          <div className="my-6">
-            <h1 className="font-serif text-3xl sm:text-4xl font-light tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-gold-200 via-gold-400 to-gold-200">
-              Kasun & Nethmi
+          {/* Couple Names & Subtitle */}
+          <div className="relative z-10 mt-6 sm:mt-8">
+            <h1 className="font-title text-2xl sm:text-3xl font-bold tracking-[2.5px] text-white">
+              KASUN &amp; NETHMI
             </h1>
-            <p className="mt-1 font-script text-2xl sm:text-3xl text-gold-300">
+            <p className="font-script italic text-xl sm:text-2xl text-[#E5C77A] mt-1 font-normal">
               Together Forever
             </p>
           </div>
 
-          {/* Decorative Divider */}
-          <div className="flex items-center justify-center gap-3 my-4">
-            <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-gold-400/60" />
-            <Heart className="w-4 h-4 fill-gold-400 text-gold-400" />
-            <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-gold-400/60" />
-          </div>
-
-          {/* Personalized Guest Badge */}
-          <div className="my-6 rounded-xl border border-gold-500/25 bg-gold-950/40 p-4">
-            <p className="text-[11px] uppercase tracking-wider text-gold-300/80 mb-1">
-              Specially Invited
-            </p>
-            <p className="font-serif text-lg sm:text-xl font-medium text-ivory-100">
-              {guestDisplayName}
-            </p>
-            {guest?.invitation_type && (
-              <span className="inline-block mt-2 text-xs px-3 py-0.5 rounded-full bg-gold-400/20 text-gold-300 border border-gold-400/30">
-                {guest.invitation_type === "Custom"
-                  ? guest.custom_text || "Special Guest"
-                  : `${guest.invitation_type} Invitation (${guest.seats || 1} ${(guest.seats || 1) > 1 ? "Seats" : "Seat"})`}
-              </span>
-            )}
-          </div>
-
-          {/* Wax Seal Action Button */}
-          <div className="mt-7 flex flex-col items-center">
-            <button
-              onClick={handleOpen}
-              id="btn-open-invitation"
-              className="group relative flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-gold-300 via-gold-500 to-gold-700 shadow-[0_0_30px_rgba(197,160,89,0.5)] border-2 border-gold-200 cursor-pointer transform hover:scale-105 active:scale-95 transition-all duration-300"
+          {/* Heart Divider */}
+          <div className="relative z-10 flex items-center justify-center gap-3 my-4">
+            <div className="h-[1px] w-20 bg-gradient-to-r from-transparent to-[#C59E47]/70" />
+            <svg
+              className="w-4 h-4 text-[#E5C77A] fill-current"
+              viewBox="0 0 24 24"
             >
-              <div className="flex flex-col items-center justify-center text-royal-900">
-                <span className="font-serif font-bold text-xs tracking-tighter">K & N</span>
-                <Mail className="w-5 h-5 text-royal-900 mt-0.5 group-hover:scale-110 transition-transform" />
-              </div>
-            </button>
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <div className="h-[1px] w-20 bg-gradient-to-l from-transparent to-[#C59E47]/70" />
+          </div>
 
-            <p className="mt-4 text-xs font-medium tracking-widest text-gold-300/90 uppercase animate-bounce">
-              Tap Wax Seal to Open
+          {/* Guest Personalization Tile */}
+          <div className="relative z-10 my-6 rounded-2xl border border-[#253552] bg-[#0E1626] p-4 sm:p-5 shadow-inner">
+            <p className="font-body text-[9px] font-semibold tracking-[2.8px] text-[#8E9EB8] uppercase">
+              SPECIALLY INVITED
+            </p>
+            <h2 className="font-title text-xl sm:text-2xl font-semibold tracking-[1.5px] text-white mt-1.5 uppercase">
+              {guestDisplayName}
+            </h2>
+
+            {/* Seat Badge Pill */}
+            <div className="mt-3 inline-block rounded-full bg-[#18243A] px-4 py-1 border border-[#C59E47]/50 shadow-sm">
+              <span className="font-body text-[11px] font-medium text-[#E5C77A]">
+                {getSeatText()}
+              </span>
+            </div>
+          </div>
+
+          {/* Animated 3D Wax Seal Centerpiece */}
+          <div className="relative z-10 mt-6 sm:mt-8 flex flex-col items-center">
+            <div
+              id="btn-open-invitation"
+              onClick={handleOpen}
+              className="group relative flex items-center justify-center w-24 h-24 cursor-pointer transition-transform duration-300 active:scale-95"
+            >
+              {/* Outer Pulsing Aura Rings */}
+              <div className="absolute inset-0 rounded-full border border-dashed border-[#E5C77A]/50 animate-seal-aura" />
+              <div className="absolute -inset-2 rounded-full border border-[#E5C77A]/40 animate-seal-pulse" />
+
+              {/* 3D Wax Seal Coin */}
+              <div className="relative flex items-center justify-center w-20 h-20 rounded-full wax-seal-gradient shadow-[0_8px_25px_rgba(212,175,55,0.45)] border border-[#FFE5A3]/60 group-hover:scale-105 transition-transform duration-300">
+                {/* Inner Ring Groove */}
+                <div className="absolute inset-2 rounded-full border border-[#4F3503]/40 flex flex-col items-center justify-center">
+                  <span className="font-title font-bold text-[13px] tracking-[2px] text-[#382402] select-none">
+                    K &amp; N
+                  </span>
+                  
+                  {/* Embossed Envelope Icon */}
+                  <svg
+                    className="w-4 h-4 text-[#382402] mt-0.5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            {/* Prompt Text */}
+            <p className="font-body text-[11px] font-bold tracking-[2.5px] text-[#E5C77A] uppercase mt-4 animate-pulse">
+              TAP WAX SEAL TO OPEN
             </p>
           </div>
         </div>

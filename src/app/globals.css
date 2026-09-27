@@ -4,8 +4,66 @@
 
 @layer base {
   body {
-    @apply bg-[#FAF8F5] text-[#2D2B2A] antialiased selection:bg-gold-200 selection:text-royal-900;
+    @apply bg-[#E8E3DA] text-[#0F172A] antialiased selection:bg-gold-200 selection:text-midnight-950;
   }
+}
+
+/* Metallic Gold Foil Gradients */
+.bg-gold-foil {
+  background: linear-gradient(135deg, #FCEFD2 0%, #E5C77A 25%, #C59E47 50%, #E8CE87 75%, #9C7729 100%);
+}
+
+.text-gold-foil {
+  background: linear-gradient(135deg, #FCEFD2 0%, #E5C77A 35%, #C59E47 70%, #E8CE87 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-border {
+  border-image: linear-gradient(to bottom, rgba(229,199,122,0.8) 0%, rgba(197,158,71,0.3) 50%, rgba(229,199,122,0.7) 100%) 1;
+}
+
+.bg-dark-envelope {
+  background: linear-gradient(135deg, #111B2E 0%, #0B1220 40%, #070C16 100%);
+}
+
+.wax-seal-gradient {
+  background: radial-gradient(circle at 35% 30%, #FFF3D6 0%, #DEB553 30%, #9E721D 70%, #593E07 100%);
+}
+
+/* Animations & Keyframes */
+@keyframes sealPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+@keyframes sealAura {
+  0% {
+    transform: rotate(0deg) scale(0.96);
+    opacity: 0.35;
+  }
+  50% {
+    transform: rotate(180deg) scale(1.04);
+    opacity: 0.65;
+  }
+  100% {
+    transform: rotate(360deg) scale(0.96);
+    opacity: 0.35;
+  }
+}
+
+.animate-seal-pulse {
+  animation: sealPulse 2.5s ease-in-out infinite;
+}
+
+.animate-seal-aura {
+  animation: sealAura 12s linear infinite;
 }
 
 /* Luxury scrollbar */
@@ -13,9 +71,9 @@
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAF8F5;
+  background: #E8E3DA;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D4AF37;
+  background: #C59E47;
   border-radius: 4px;
 }

@@ -1,24 +1,27 @@
 import type { Metadata } from "next";
-import { Cinzel, Great_Vibes, Inter } from "next/font/google";
+import { Cinzel, Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
 const cinzel = Cinzel({
   subsets: ["latin"],
   variable: "--font-cinzel",
   display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
-const greatVibes = Great_Vibes({
-  weight: "400",
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-great-vibes",
+  variable: "--font-playfair",
   display: "swap",
+  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const inter = Inter({
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-jakarta",
   display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -37,8 +40,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cinzel.variable} ${greatVibes.variable} ${inter.variable}`}>
-      <body className="font-body min-h-screen bg-[#FAF8F5]">{children}</body>
+    <html
+      lang="en"
+      className={`${cinzel.variable} ${playfair.variable} ${plusJakarta.variable}`}
+    >
+      <body className="font-body min-h-screen bg-[#E8E3DA] text-[#0F172A] antialiased">
+        {children}
+      </body>
     </html>
   );
 }

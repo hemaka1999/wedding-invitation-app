@@ -1,61 +1,72 @@
 "use client";
 
 import React from "react";
-import { Sparkles, Clock, GlassWater, Utensils, Music, PartyPopper } from "lucide-react";
 import { weddingConfig } from "@/config/weddingConfig";
+import ThreeSketchShimmer from "./ThreeSketchShimmer";
+
+const timelineEmojis = ["🥁", "✨", "🥂", "🍽️", "💃"];
+
+// 5 Slices of the single continuous vertical story sketch
+const timelineSlices = [
+  { offset: 0.00, height: 0.22 }, // 1. Arrival: Magul Bera & Welcome Arch
+  { offset: 0.20, height: 0.22 }, // 2. Poruwa Ceremony & Oil Lamp
+  { offset: 0.40, height: 0.22 }, // 3. Registration & Toast
+  { offset: 0.60, height: 0.22 }, // 4. Banquet Lunch & Acoustic Music
+  { offset: 0.80, height: 0.20 }, // 5. Cake Cutting & Baila Party
+];
 
 export default function EventSchedule() {
   const { timeline } = weddingConfig;
 
-  const getTimelineIcon = (index: number) => {
-    switch (index) {
-      case 0:
-        return <GlassWater className="w-4 h-4 text-gold-600" />;
-      case 1:
-        return <Sparkles className="w-4 h-4 text-gold-600" />;
-      case 2:
-        return <Clock className="w-4 h-4 text-gold-600" />;
-      case 3:
-        return <Utensils className="w-4 h-4 text-gold-600" />;
-      case 4:
-        return <PartyPopper className="w-4 h-4 text-gold-600" />;
-      default:
-        return <Sparkles className="w-4 h-4 text-gold-600" />;
-    }
-  };
-
   return (
-    <section className="my-12 px-4 max-w-xl mx-auto">
+    <section className="my-8">
       {/* Section Header */}
-      <div className="text-center mb-8">
-        <span className="text-[11px] uppercase tracking-widest text-gold-700 font-semibold">
-          Order of Auspicious Events
+      <div className="text-center mb-6">
+        <span className="font-body text-[10px] sm:text-[11px] font-bold tracking-[2.8px] text-[#997327] uppercase">
+          ORDER OF AUSPICIOUS EVENTS
         </span>
-        <h2 className="mt-1 font-serif text-2xl sm:text-3xl text-royal-900 font-semibold">
-          Wedding Schedule & Poruwa
+        <h2 className="font-title text-xl sm:text-2xl font-bold text-[#0F172A] mt-1">
+          Wedding Schedule &amp; Poruwa
         </h2>
       </div>
 
-      {/* Timeline List */}
-      <div className="relative border-l-2 border-gold-300 ml-4 sm:ml-8 pl-6 sm:pl-8 space-y-8">
+      {/* Timeline with Golden Spine */}
+      <div className="relative pl-8 pr-1 space-y-4 before:absolute before:left-3 before:top-3 before:bottom-3 before:w-[2px] before:bg-[#DEC89E]">
         {timeline.map((event, index) => (
           <div key={index} className="relative group">
-            {/* Timeline Dot with Icon */}
-            <div className="absolute -left-[35px] sm:-left-[43px] top-0 flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border-2 border-gold-400 shadow-sm group-hover:scale-110 transition-transform">
-              {getTimelineIcon(index)}
+            {/* Timeline Circle Badge */}
+            <div className="absolute -left-[30px] top-3 z-10 flex items-center justify-center w-6 h-6 rounded-full bg-[#FAF6EE] border-2 border-[#C59E47] shadow-xs group-hover:scale-110 transition-transform">
+              <span className="text-[10px]">
+                {timelineEmojis[index] || "✨"}
+              </span>
             </div>
 
-            {/* Event Content Card */}
-            <div className="rounded-xl border border-gold-200/80 bg-white/90 p-4 sm:p-5 shadow-sm hover:shadow-md transition-shadow">
-              <div className="inline-block rounded-md bg-gold-500/10 px-2.5 py-0.5 text-xs font-bold text-gold-700 mb-1">
-                {event.time}
+            {/* Event Content Card with 3D Gold Shimmering Slice */}
+            <div className="relative overflow-hidden rounded-[16px] border border-[#EFE4CF] bg-white p-3.5 sm:p-4 shadow-[0_4px_16px_rgba(122,104,67,0.06)] hover:shadow-md transition-shadow">
+              
+              {/* WebGL Gold Foil Shimmer Slice */}
+              <ThreeSketchShimmer
+                imageSrc="/images/timeline_journey_sketch.jpg"
+                opacity={0.25}
+                goldIntensity={1.2}
+                sliceOffset={timelineSlices[index]?.offset ?? 0.0}
+                sliceHeight={timelineSlices[index]?.height ?? 0.2}
+              />
+
+              {/* Card Content (z-10) */}
+              <div className="relative z-10">
+                <div className="flex items-center gap-2">
+                  <span className="inline-block rounded-full bg-[#FAF4E8] px-2.5 py-0.5 text-[10px] font-bold text-[#997327] shadow-xs">
+                    {event.time}
+                  </span>
+                  <h4 className="font-title text-[13px] sm:text-[14px] font-bold text-[#0F172A] uppercase">
+                    {event.title}
+                  </h4>
+                </div>
+                <p className="font-body text-[11px] sm:text-xs text-[#696155] mt-1.5 leading-relaxed">
+                  {event.description}
+                </p>
               </div>
-              <h4 className="font-serif text-lg font-semibold text-royal-900">
-                {event.title}
-              </h4>
-              <p className="mt-1 text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                {event.description}
-              </p>
             </div>
           </div>
         ))}

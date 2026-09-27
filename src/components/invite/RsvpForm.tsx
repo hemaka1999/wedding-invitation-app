@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { CheckCircle2, XCircle, Send, Heart, Sparkles, Loader2 } from "lucide-react";
+import { Check, Send, Loader2 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { Guest, RsvpStatus } from "@/types";
 import { apiService } from "@/services/apiService";
+import ThreeSketchShimmer from "./ThreeSketchShimmer";
 
 interface RsvpFormProps {
   guest: Guest | null;
@@ -42,8 +43,8 @@ export default function RsvpForm({ guest, onRsvpSuccess }: RsvpFormProps) {
         confetti({
           particleCount: 80,
           spread: 80,
-          origin: { y: 0.7 },
-          colors: ["#D4AF37", "#C5A059", "#10B981", "#E6CA65"],
+          origin: { y: 0.75 },
+          colors: ["#FCEFD2", "#E5C77A", "#C59E47", "#10B981", "#DEB553"],
         });
       }
 
@@ -58,148 +59,153 @@ export default function RsvpForm({ guest, onRsvpSuccess }: RsvpFormProps) {
   };
 
   return (
-    <section className="my-12 px-4 max-w-xl mx-auto">
-      <div className="rounded-2xl border border-gold-300/80 bg-gradient-to-b from-white to-ivory-50 p-6 sm:p-8 shadow-md">
+    <section className="my-8">
+      <div className="relative overflow-hidden rounded-[20px] border border-[#EFE4CF] bg-white p-5 sm:p-6 text-center shadow-[0_8px_24px_rgba(122,104,67,0.08)]">
         
-        {/* Header */}
-        <div className="text-center mb-6">
-          <span className="text-[11px] uppercase tracking-widest text-gold-700 font-semibold">
-            Response Requested
+        {/* 3D Gold Foil Shimmer Shader for Holding Hands Sketch */}
+        <ThreeSketchShimmer
+          imageSrc="/images/rsvp_hands_sketch.jpg"
+          opacity={0.24}
+          goldIntensity={1.3}
+        />
+
+        {/* Card Content (z-10) */}
+        <div className="relative z-10">
+          {/* Header */}
+          <span className="font-body text-[10px] sm:text-[11px] font-bold tracking-[2.8px] text-[#997327] uppercase">
+            RESPONSE REQUESTED
           </span>
-          <h2 className="mt-1 font-serif text-2xl sm:text-3xl text-royal-900 font-semibold">
-            Will You Attend?
+          <h2 className="font-title text-xl sm:text-2xl font-bold text-[#0F172A] mt-1">
+            WILL YOU ATTEND?
           </h2>
-          <p className="text-xs sm:text-sm text-neutral-500 mt-1">
+          <p className="font-body text-[11px] sm:text-xs text-[#696155] mt-1">
             Please respond by 1st October 2026 to help us finalize arrangements.
           </p>
-        </div>
 
-        {isSubmitted ? (
-          <div className="text-center py-6">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-50 border border-emerald-200 mb-4">
-              <CheckCircle2 className="w-8 h-8 text-emerald-600" />
-            </div>
-            <h3 className="font-serif text-xl font-bold text-royal-900">
-              Thank You for Your Response!
-            </h3>
-            <p className="mt-2 text-sm text-neutral-600">
-              {status === "Attending"
-                ? `We are delighted that you (${attendingCount} ${attendingCount > 1 ? "guests" : "guest"}) will be joining us on our special day!`
-                : "Thank you for letting us know. We will miss your presence!"}
-            </p>
-            {wishes && (
-              <div className="mt-4 p-3.5 rounded-xl bg-gold-50/60 border border-gold-200 text-xs italic text-neutral-700">
-                "{wishes}"
+          {isSubmitted ? (
+            <div className="mt-5 py-3">
+              {/* Green Confirmation Pill */}
+              <div className="mx-auto flex items-center justify-center w-10 h-10 rounded-full bg-[#EDF7ED] border border-[#4CAF50] mb-3 shadow-xs">
+                <Check className="w-5 h-5 text-[#2E7D32] stroke-[2.5]" />
               </div>
-            )}
-            <button
-              onClick={() => setIsSubmitted(false)}
-              className="mt-6 text-xs text-gold-700 underline font-medium hover:text-gold-800"
-            >
-              Update Your Response
-            </button>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Status Options */}
-            <div className="grid grid-cols-2 gap-3">
-              <button
-                type="button"
-                onClick={() => setStatus("Attending")}
-                className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all ${
-                  status === "Attending"
-                    ? "border-emerald-500 bg-emerald-50/70 text-emerald-900 shadow-sm"
-                    : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300"
-                }`}
-              >
-                <CheckCircle2
-                  className={`w-6 h-6 mb-1 ${
-                    status === "Attending" ? "text-emerald-600" : "text-neutral-400"
-                  }`}
-                />
-                <span className="text-xs sm:text-sm font-semibold">Joyfully Accept</span>
-              </button>
 
-              <button
-                type="button"
-                onClick={() => setStatus("Declined")}
-                className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all ${
-                  status === "Declined"
-                    ? "border-rose-400 bg-rose-50/70 text-rose-900 shadow-sm"
-                    : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300"
-                }`}
-              >
-                <XCircle
-                  className={`w-6 h-6 mb-1 ${
-                    status === "Declined" ? "text-rose-500" : "text-neutral-400"
-                  }`}
-                />
-                <span className="text-xs sm:text-sm font-semibold">Regretfully Decline</span>
-              </button>
-            </div>
+              <p className="font-body text-xs sm:text-[13px] font-bold text-[#0F172A]">
+                {status === "Attending"
+                  ? `We are delighted that you (${attendingCount} ${attendingCount > 1 ? "guests" : "guest"}) will join us!`
+                  : "Thank you for letting us know. You will be dearly missed!"}
+              </p>
 
-            {/* Number of Attending Guests (Only if Attending) */}
-            {status === "Attending" && (
-              <div className="space-y-2">
-                <label className="block text-xs font-semibold text-neutral-700">
-                  Number of Attending Guests (Max {maxSeats}):
-                </label>
-                <div className="flex items-center gap-3">
-                  {[...Array(maxSeats)].map((_, i) => {
-                    const count = i + 1;
-                    return (
-                      <button
-                        key={count}
-                        type="button"
-                        onClick={() => setAttendingCount(count)}
-                        className={`flex-1 py-2 rounded-lg border text-sm font-medium transition-all ${
-                          attendingCount === count
-                            ? "border-gold-500 bg-gold-50 text-gold-900 font-bold shadow-sm"
-                            : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300"
-                        }`}
-                      >
-                        {count} {count === 1 ? "Person" : "People"}
-                      </button>
-                    );
-                  })}
+              {wishes && (
+                <div className="mt-3 p-3 rounded-[12px] bg-[#FAF6EE] border border-[#EFE4CF] text-[11px] italic text-[#696155]">
+                  &ldquo;{wishes}&rdquo;
                 </div>
-              </div>
-            )}
-
-            {/* Wishes & Dietary Notes */}
-            <div className="space-y-2">
-              <label className="block text-xs font-semibold text-neutral-700">
-                Wishes & Blessing Message for the Couple (Optional):
-              </label>
-              <textarea
-                value={wishes}
-                onChange={(e) => setWishes(e.target.value)}
-                placeholder="Write your wishes or any special dietary requirements..."
-                rows={3}
-                className="w-full rounded-xl border border-neutral-300 p-3 text-xs sm:text-sm focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500"
-              />
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="flex items-center justify-center gap-2 w-full rounded-xl bg-gradient-to-r from-gold-500 via-gold-600 to-gold-500 py-3.5 text-sm font-semibold text-white shadow-md hover:from-gold-600 hover:to-gold-700 disabled:opacity-50 transition-all duration-200"
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Submitting RSVP...</span>
-                </>
-              ) : (
-                <>
-                  <Send className="w-4 h-4" />
-                  <span>Send RSVP Confirmation</span>
-                </>
               )}
-            </button>
-          </form>
-        )}
+
+              <button
+                onClick={() => setIsSubmitted(false)}
+                id="btn-update-rsvp"
+                className="mt-4 font-body text-[11px] font-semibold underline text-[#997327] hover:text-[#7A5817] cursor-pointer"
+              >
+                Update Your Response
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="mt-5 space-y-4 text-left">
+              {/* Status Options */}
+              <div className="grid grid-cols-2 gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => setStatus("Attending")}
+                  className={`py-3 px-2 rounded-[14px] border text-center transition-all ${
+                    status === "Attending"
+                      ? "border-[#4CAF50] bg-[#EDF7ED] text-[#2E7D32] font-bold shadow-xs"
+                      : "border-[#EAE0D0] bg-[#FAF6EE]/60 text-[#696155] hover:border-[#DEC89E]"
+                  }`}
+                >
+                  <span className="font-body text-xs sm:text-[13px] block">
+                    ✓ Joyfully Accept
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setStatus("Declined")}
+                  className={`py-3 px-2 rounded-[14px] border text-center transition-all ${
+                    status === "Declined"
+                      ? "border-[#E57373] bg-[#FFEBEE] text-[#C62828] font-bold shadow-xs"
+                      : "border-[#EAE0D0] bg-[#FAF6EE]/60 text-[#696155] hover:border-[#DEC89E]"
+                  }`}
+                >
+                  <span className="font-body text-xs sm:text-[13px] block">
+                    ✕ Regretfully Decline
+                  </span>
+                </button>
+              </div>
+
+              {/* Number of Attending Guests (Only if Attending) */}
+              {status === "Attending" && (
+                <div>
+                  <label className="block font-body text-[11px] font-semibold text-[#0F172A] mb-1.5">
+                    Number of Attending Guests (Max {maxSeats}):
+                  </label>
+                  <div className="flex items-center gap-2">
+                    {[...Array(maxSeats)].map((_, i) => {
+                      const count = i + 1;
+                      return (
+                        <button
+                          key={count}
+                          type="button"
+                          onClick={() => setAttendingCount(count)}
+                          className={`flex-1 py-2 rounded-[10px] border text-xs font-semibold transition-all ${
+                            attendingCount === count
+                              ? "border-[#C59E47] bg-[#FAF4E8] text-[#997327] font-bold shadow-xs"
+                              : "border-[#EAE0D0] bg-white text-[#696155] hover:border-[#DEC89E]"
+                          }`}
+                        >
+                          {count} {count === 1 ? "Guest" : "Guests"}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Wishes & Dietary Notes */}
+              <div>
+                <label className="block font-body text-[11px] font-semibold text-[#0F172A] mb-1">
+                  Wishes &amp; Blessing Message for the Couple (Optional):
+                </label>
+                <textarea
+                  value={wishes}
+                  onChange={(e) => setWishes(e.target.value)}
+                  placeholder="Write your blessings or dietary notes..."
+                  rows={2}
+                  className="w-full rounded-[12px] border border-[#EAE0D0] p-2.5 font-body text-xs text-[#0F172A] focus:border-[#C59E47] focus:outline-none focus:ring-1 focus:ring-[#C59E47]"
+                />
+              </div>
+
+              {/* Submit Button in Gold Foil */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                id="btn-submit-rsvp"
+                className="flex items-center justify-center gap-2 w-full rounded-full bg-gold-foil py-3 px-4 text-xs sm:text-[13px] font-bold text-[#3D2602] shadow-sm hover:brightness-105 active:scale-[0.99] disabled:opacity-60 transition-all cursor-pointer"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin text-[#3D2602]" />
+                    <span>Submitting RSVP...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4 text-[#3D2602]" />
+                    <span>Send RSVP Confirmation</span>
+                  </>
+                )}
+              </button>
+            </form>
+          )}
+        </div>
       </div>
     </section>
   );

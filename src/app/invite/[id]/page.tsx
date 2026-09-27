@@ -42,10 +42,10 @@ export default function InvitePage({ params }: InvitePageProps) {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#FAF8F5]">
+      <div className="min-h-screen flex items-center justify-center bg-[#E8E3DA]">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-gold-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="font-serif text-sm text-gold-700">
+          <div className="w-9 h-9 border-2 border-[#C59E47] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+          <p className="font-body text-xs font-semibold tracking-wider text-[#997327] uppercase">
             Preparing your invitation...
           </p>
         </div>
