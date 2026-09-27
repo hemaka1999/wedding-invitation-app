@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cinzel, Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
+import { weddingConfig } from "@/config/weddingConfig";
 import "./globals.css";
 
 const cinzel = Cinzel({
@@ -25,11 +26,11 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Wedding Invitation | Kasun & Nethmi",
-  description: "Together with their parents, Kasun & Nethmi joyfully invite you to celebrate their holy matrimony on Sunday, 18th October 2026 at Shangri-La Hotel, Colombo.",
+  title: `Wedding Invitation | ${weddingConfig.groom.callName} & ${weddingConfig.bride.callName}`,
+  description: `${weddingConfig.invitationNote} on ${weddingConfig.date.displayDate} at ${weddingConfig.venue.name}, ${weddingConfig.venue.city}.`,
   openGraph: {
-    title: "Wedding Invitation | Kasun & Nethmi",
-    description: "Together with their parents, Kasun & Nethmi joyfully invite you to celebrate their wedding.",
+    title: `Wedding Invitation | ${weddingConfig.groom.callName} & ${weddingConfig.bride.callName}`,
+    description: weddingConfig.invitationNote,
     type: "website",
   },
 };

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Guest } from "@/types";
+import { weddingConfig } from "@/config/weddingConfig";
 import EnvelopeCover from "./EnvelopeCover";
 import PersonalizedGreeting from "./PersonalizedGreeting";
 import CoupleIntroduction from "./CoupleIntroduction";
@@ -18,6 +19,8 @@ interface WeddingInvitationCardProps {
 
 export default function WeddingInvitationCard({ guest }: WeddingInvitationCardProps) {
   const [isOpened, setIsOpened] = useState(false);
+  const { groom, bride, subtitles, date, venue } = weddingConfig;
+  const coupleNames = `${groom.callName.toUpperCase()} & ${bride.callName.toUpperCase()}`;
 
   return (
     <main className="relative min-h-screen bg-[#E8E3DA] py-6 sm:py-12 px-3 sm:px-4 selection:bg-[#E5C77A]/30">
@@ -40,17 +43,17 @@ export default function WeddingInvitationCard({ guest }: WeddingInvitationCardPr
           <div className="flex items-center justify-center gap-3">
             <div className="h-[1px] w-12 bg-[#C59E47]/70" />
             <span className="font-body text-[9px] sm:text-[10px] font-bold tracking-[2.8px] text-[#997327] uppercase">
-              ✦ HOLY MATRIMONY &amp; PORUWA ✦
+              ✦ {subtitles.poruwaBadge} ✦
             </span>
             <div className="h-[1px] w-12 bg-[#C59E47]/70" />
           </div>
 
           {/* Couple Heading */}
           <h1 className="font-title text-3xl sm:text-4xl font-bold tracking-[2px] text-[#0F172A] mt-4">
-            KASUN &amp; NETHMI
+            {coupleNames}
           </h1>
           <p className="font-script italic text-2xl sm:text-3xl text-[#A88232] mt-1 font-normal">
-            are getting married
+            {subtitles.mainSubtitle}
           </p>
         </div>
 
@@ -75,10 +78,10 @@ export default function WeddingInvitationCard({ guest }: WeddingInvitationCardPr
         {/* Footer Info */}
         <footer className="mt-10 mb-2 pt-6 border-t border-[#EAE0D0] text-center">
           <h4 className="font-title text-base font-bold text-[#0F172A] tracking-wider">
-            KASUN &amp; NETHMI
+            {coupleNames}
           </h4>
           <p className="font-body text-[11px] text-[#80786C] mt-1">
-            Sunday, 18th October 2026 • Shangri-La Hotel, Colombo
+            {date.displayDate} • {venue.name}, {venue.city}
           </p>
         </footer>
       </div>

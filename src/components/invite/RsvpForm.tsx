@@ -6,6 +6,7 @@ import confetti from "canvas-confetti";
 import { Guest, RsvpStatus } from "@/types";
 import { apiService } from "@/services/apiService";
 import ThreeSketchShimmer from "./ThreeSketchShimmer";
+import { weddingConfig } from "@/config/weddingConfig";
 
 interface RsvpFormProps {
   guest: Guest | null;
@@ -79,7 +80,7 @@ export default function RsvpForm({ guest, onRsvpSuccess }: RsvpFormProps) {
             WILL YOU ATTEND?
           </h2>
           <p className="font-body text-[11px] sm:text-xs text-[#696155] mt-1">
-            Please respond by 1st October 2026 to help us finalize arrangements.
+            {weddingConfig.subtitles.rsvpDeadline}
           </p>
 
           {isSubmitted ? (

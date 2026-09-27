@@ -46,6 +46,12 @@ export interface WeddingConfig {
     parentsText: string;
     hometown: string;
   };
+  subtitles: {
+    coverSubtitle: string;
+    mainSubtitle: string;
+    poruwaBadge: string;
+    rsvpDeadline: string;
+  };
   date: {
     displayDate: string;
     timeDisplay: string;
@@ -62,6 +68,7 @@ export interface WeddingConfig {
   timeline: TimelineEvent[];
   venue: {
     name: string;
+    shortName?: string;
     city: string;
     address: string;
     mapEmbedUrl: string;

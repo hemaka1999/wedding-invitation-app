@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import confetti from "canvas-confetti";
 import { Guest } from "@/types";
+import { weddingConfig } from "@/config/weddingConfig";
 
 interface EnvelopeCoverProps {
   guest: Guest | null;
@@ -12,6 +13,10 @@ interface EnvelopeCoverProps {
 export default function EnvelopeCover({ guest, onOpen }: EnvelopeCoverProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isSealing, setIsSealing] = useState(false);
+
+  const { groom, bride, subtitles } = weddingConfig;
+  const coupleHeader = `${groom.callName.toUpperCase()} & ${bride.callName.toUpperCase()}`;
+  const monogramInitials = `${groom.callName.charAt(0)} & ${bride.callName.charAt(0)}`;
 
   const handleOpen = () => {
     if (isSealing || isOpen) return;
@@ -119,10 +124,10 @@ export default function EnvelopeCover({ guest, onOpen }: EnvelopeCoverProps) {
           {/* Couple Names & Subtitle */}
           <div className="relative z-10 mt-6 sm:mt-8">
             <h1 className="font-title text-2xl sm:text-3xl font-bold tracking-[2.5px] text-white">
-              KASUN &amp; NETHMI
+              {coupleHeader}
             </h1>
             <p className="font-script italic text-xl sm:text-2xl text-[#E5C77A] mt-1 font-normal">
-              Together Forever
+              {subtitles.coverSubtitle}
             </p>
           </div>
 
@@ -133,7 +138,7 @@ export default function EnvelopeCover({ guest, onOpen }: EnvelopeCoverProps) {
               className="w-4 h-4 text-[#E5C77A] fill-current"
               viewBox="0 0 24 24"
             >
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
             </svg>
             <div className="h-[1px] w-20 bg-gradient-to-l from-transparent to-[#C59E47]/70" />
           </div>
@@ -171,7 +176,7 @@ export default function EnvelopeCover({ guest, onOpen }: EnvelopeCoverProps) {
                 {/* Inner Ring Groove */}
                 <div className="absolute inset-2 rounded-full border border-[#4F3503]/40 flex flex-col items-center justify-center">
                   <span className="font-title font-bold text-[13px] tracking-[2px] text-[#382402] select-none">
-                    K &amp; N
+                    {monogramInitials}
                   </span>
                   
                   {/* Embossed Envelope Icon */}
