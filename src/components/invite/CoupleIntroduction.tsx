@@ -12,7 +12,7 @@ export default function CoupleIntroduction() {
       {/* Poruwa Blessing Quote */}
       <div className="my-6 text-center px-3 space-y-1">
         <p className="font-script italic text-[15px] sm:text-base text-[#3D372F] leading-snug">
-          &ldquo;Together with their parents, Kasun &amp; Nethmi
+          &ldquo;Together with their parents, {groom.callName} &amp; {bride.callName}
         </p>
         <p className="font-script italic text-[15px] sm:text-base text-[#3D372F] leading-snug">
           joyfully request the honour of your presence

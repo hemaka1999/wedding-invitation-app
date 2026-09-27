@@ -1,5 +1,6 @@
 import React from "react";
 import { HeartHandshake } from "lucide-react";
+import { weddingConfig } from "@/config/weddingConfig";
 
 export default function NotFound() {
   return (
@@ -18,7 +19,7 @@ export default function NotFound() {
           We couldn&apos;t find an active wedding invitation for this link.
         </p>
         <p className="font-body text-[11px] text-[#80786C] leading-relaxed">
-          Please check the invitation URL or contact Kasun &amp; Nethmi directly.
+          Please check the invitation URL or contact {weddingConfig.groom.callName} &amp; {weddingConfig.bride.callName} directly.
         </p>
       </div>
     </div>

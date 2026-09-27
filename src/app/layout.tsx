@@ -26,12 +26,30 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: `Wedding Invitation | ${weddingConfig.groom.callName} & ${weddingConfig.bride.callName}`,
-  description: `${weddingConfig.invitationNote} on ${weddingConfig.date.displayDate} at ${weddingConfig.venue.name}, ${weddingConfig.venue.city}.`,
+  title: {
+    default: `Wedding Invitation | ${weddingConfig.groom.callName} & ${weddingConfig.bride.callName}`,
+    template: `%s | ${weddingConfig.groom.callName} & ${weddingConfig.bride.callName}`,
+  },
+  description: `${weddingConfig.invitationNote} Celebrating on ${weddingConfig.date.displayDate} at ${weddingConfig.venue.name}, ${weddingConfig.venue.city}.`,
   openGraph: {
     title: `Wedding Invitation | ${weddingConfig.groom.callName} & ${weddingConfig.bride.callName}`,
-    description: weddingConfig.invitationNote,
+    description: `${weddingConfig.invitationNote} Celebrating on ${weddingConfig.date.displayDate} at ${weddingConfig.venue.name}, ${weddingConfig.venue.city}.`,
     type: "website",
+    siteName: `${weddingConfig.groom.callName} & ${weddingConfig.bride.callName}'s Wedding`,
+    images: [
+      {
+        url: "/images/couple_sketch.jpg",
+        width: 1200,
+        height: 630,
+        alt: `${weddingConfig.groom.callName} & ${weddingConfig.bride.callName} Wedding Invitation`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Wedding Invitation | ${weddingConfig.groom.callName} & ${weddingConfig.bride.callName}`,
+    description: `${weddingConfig.invitationNote}`,
+    images: ["/images/couple_sketch.jpg"],
   },
 };
 
