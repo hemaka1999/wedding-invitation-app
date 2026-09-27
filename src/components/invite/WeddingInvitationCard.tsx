@@ -73,21 +73,13 @@ export default function WeddingInvitationCard({ guest }: WeddingInvitationCardPr
         <RsvpForm guest={guest} />
 
         {/* Footer Info */}
-        <footer className="mt-10 mb-4 pt-6 border-t border-[#EAE0D0] text-center">
+        <footer className="mt-10 mb-2 pt-6 border-t border-[#EAE0D0] text-center">
           <h4 className="font-title text-base font-bold text-[#0F172A] tracking-wider">
             KASUN &amp; NETHMI
           </h4>
           <p className="font-body text-[11px] text-[#80786C] mt-1">
             Sunday, 18th October 2026 • Shangri-La Hotel, Colombo
           </p>
-          <div className="mt-4">
-            <a
-              href="/admin"
-              className="text-[10px] text-[#A88232]/70 hover:text-[#997327] transition-colors uppercase tracking-wider"
-            >
-              Admin Portal
-            </a>
-          </div>
         </footer>
       </div>
     </main>
